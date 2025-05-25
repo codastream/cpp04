@@ -4,4 +4,6 @@ ex02/ex02
 ex03/ex03
 .vscode
 *.o
-initClass
+ex00/initClass
+ex01/initClass
+ex02/initClass
