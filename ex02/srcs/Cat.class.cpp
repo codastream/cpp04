@@ -1,15 +1,20 @@
 #include "../includes/Cat.class.hpp"
 #include "../includes/Brain.class.hpp"
 #include "../includes/util.hpp"
-
-Cat::Cat( void ) : Animal("Cat")
+/*
+** @brief Default constructor
+*/
+Cat::Cat( void )
 {
 	std::cout << "default constructor called for " <<  BLUE << "Cat class" \
 	<< NC << std::endl;
+	_type = "Cat";
 	_brain = new Brain();
+	if (!_brain)
+		put_nl("Error");
 }
 
-Cat::Cat( const Cat& o ) : Animal(o), _brain(o._brain)
+Cat::Cat( const Cat& o ) :  AAnimal(o), _type(o._type), _brain(o._brain)
 {
 	std::cout << "copy constructor called for " <<  BLUE << "Cat class" \
 	<< NC << std::endl;
@@ -32,6 +37,16 @@ Cat& Cat::operator=( const Cat &o )
 	return (*this);
 }
 
+const std::string Cat::getType( void ) const
+{
+	return (_type);
+}
+
+void Cat::setType( const std::string &type )
+{
+	_type = type;
+}
+
 void	Cat::makeSound( void ) const
 {
 	put_nl("Meow 😺");
@@ -40,4 +55,10 @@ void	Cat::makeSound( void ) const
 Brain* 		Cat::getBrain( void )
 {
 	return (_brain);
+}
+
+std::ostream &operator<<(std::ostream &os, const Cat *a)
+{
+	os << YELLOW << "cat at add" << &a << " [type:" << a->getType() << "]" << NC;
+	return (os);
 }

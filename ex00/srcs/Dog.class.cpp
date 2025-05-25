@@ -7,7 +7,7 @@ Dog::Dog( void ) : Animal("Dog")
 	<< NC << std::endl;
 }
 
-Dog::Dog( const Dog& o ) : Animal(o.getType())
+Dog::Dog( const Dog& o ) : Animal(o)
 {
 	std::cout << "copy constructor called for " <<  BLUE << "Dog class" \
 	<< NC << std::endl;

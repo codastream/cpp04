@@ -8,7 +8,7 @@ Cat::Cat( void ) : Animal("Cat")
 	<< NC << std::endl;
 }
 
-Cat::Cat( const Cat& o ) : Animal(o.getType())
+Cat::Cat( const Cat& o ) : Animal(o)
 {
 	std::cout << "copy constructor called for " <<  BLUE << "Cat class" \
 	<< NC << std::endl;

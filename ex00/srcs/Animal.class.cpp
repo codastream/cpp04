@@ -13,7 +13,6 @@ Animal::Animal( const std::string &type ) : _type(type)
 		<< NC << std::endl;
 }
 
-
 Animal::Animal( const Animal& o ) : _type(o.getType())
 {
 	std::cout << "copy constructor called for " <<  BLUE << "Animal class" \
