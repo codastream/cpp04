@@ -8,7 +8,7 @@ int main( void )
 	int	n = 10;
 	AAnimal *animals[n];
 
-	// Cant
+	// Can't instanciate
 	// AAnimal *a = new Animal();
 
 	for (int i = 0; i < n; i++)

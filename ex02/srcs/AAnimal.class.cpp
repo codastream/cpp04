@@ -32,7 +32,7 @@ AAnimal& AAnimal::operator=( const AAnimal& o )
 	return (*this);
 }
 
-const std::string AAnimal::getType( void ) const
+std::string const & AAnimal::getType( void ) const
 {
 	return (_type);
 }

@@ -17,8 +17,6 @@ class Cat : public Animal
 	Cat& operator=( const Cat &o );
 	
 	//member
-	// const std::string	getType( void ) const;
-	// void				setType( const std::string &type );
 	void				makeSound( void ) const;
 
 	protected:
