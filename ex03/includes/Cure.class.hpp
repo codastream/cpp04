@@ -18,9 +18,9 @@ class Cure : public AMateria
 		Cure& operator=(const Cure& inst);
 
 		// member
-		// const std::string&	getType(void) const;
-		void				use(ICharacter& target);
-		AMateria*			clone(void) const override;
+		// const std::string&	getType(void);
+		// void				use(ICharacter& target);
+		AMateria*			clone(void) const;
 
 	private:
 

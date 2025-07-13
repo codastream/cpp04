@@ -1,4 +1,4 @@
-NAME		:=	ex02
+NAME		:=	ex03
 
 #==============================COMPIL===========================#
 
@@ -59,9 +59,10 @@ BUILD_DIR		:=	.build
 
 SRCS_FILES:=	main.cpp\
 				AMateria.class.cpp\
-				Ice.class.cpp\
+				Character.class.cpp\
 				Cure.class.cpp\
-				Charcter.class.cpp\
+				Ice.class.cpp\
+				MateriaSource.class.cpp\
 				util.cpp\
 
 SRCS:=			$(addprefix $(SRC_DIR)/, $(SRCS_FILES))

@@ -17,10 +17,8 @@ class Ice : public AMateria
 		virtual ~Ice(void);
 		Ice& operator=(const Ice& inst);
 
-		// member
-		// const std::string&	getType(void) const;
-		void				use(ICharacter& target);
-		AMateria*			clone(void) const override;
+		// void				use(ICharacter& target);
+		AMateria*			clone(void) const;
 
 	private:
 

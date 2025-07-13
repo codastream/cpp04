@@ -1,9 +1,11 @@
+*.o
+.vscode
+*/a.out
 ex00/ex00
 ex01/ex01
 ex02/ex02
 ex03/ex03
-.vscode
-*.o
 ex00/initClass
 ex01/initClass
 ex02/initClass
+ex03/initClass

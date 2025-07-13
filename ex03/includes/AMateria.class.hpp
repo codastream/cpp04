@@ -4,6 +4,8 @@
 
 #include <string>
 #include <iostream>
+#include "util.hpp"
+#include "Character.class.hpp"
 
 class ICharacter;
 class AMateria
@@ -12,16 +14,16 @@ class AMateria
 		std::string	_type;
 
 	public:
-		AMateria(std::string const &type);
+		AMateria(const std::string& type);
 		AMateria(void);
-		AMateria(const AMateria &inst);
-		AMateria& operator= (const AMateria &inst);
+		AMateria(const AMateria& inst);
+		AMateria& operator= (const AMateria& inst);
 		virtual ~AMateria(void);
 
 		// member
-		std::string const & getType(void) const;
-		virtual AMateria* clone(void) const = 0;
-		virtual void use(ICharacter& target);
+		const std::string&	getType(void) const;
+		virtual AMateria*	clone(void) const = 0;
+		virtual void		use(ICharacter& target);
 };
 
 #endif

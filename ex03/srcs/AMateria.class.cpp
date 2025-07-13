@@ -1,5 +1,4 @@
 #include "AMateria.class.hpp"
-#include "util.hpp"
 
 AMateria::AMateria( void )
 {
@@ -32,6 +31,8 @@ const std::string& AMateria::getType(void) const
 
 void AMateria::use(ICharacter& target)
 {
-	std::cout << "use called for " <<  BLUE << "AMateria class" \
-	<< NC << std::endl;
+	if (!_type.compare("ice"))
+		std::cout << "* shoots an ice bolt at " << target.getName() << std::endl;
+	else if (!_type.compare("cure"))
+		std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }

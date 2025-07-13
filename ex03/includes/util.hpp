@@ -15,7 +15,7 @@
 # define WHITE   "\033[37m"
 
 
-void	put_nl(const std::string &s);
+void	put_nl(const std::string& s);
 
 void	cpy_array_str(std::string *dest, const std::string *src, size_t size);
 

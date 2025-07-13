@@ -1,18 +1,18 @@
 #include "Cure.class.hpp"
 #include "util.hpp"
 
-Cure::Cure(void)
+// necessaire d appeler le const du parent ?
+Cure::Cure(void): AMateria()
 {
 	std::cout << "default constructor called for " <<  BLUE << "Cure class" \
 		<< NC << std::endl;
 	_type = "ice";
 }
 
-Cure::Cure(const Cure& inst)
+Cure::Cure(const Cure& inst): AMateria(inst)
 {
 	std::cout << "copy constructor called for " <<  BLUE << "Cure class" \
 		<< NC << std::endl;
-	this->_type = inst.getType();
 }
 
 Cure::Cure(const std::string& type)
@@ -30,23 +30,20 @@ Cure::~Cure(void)
 
 Cure& Cure::operator=(const Cure& inst)
 {
-	if (this != &inst)
+	Cure	*copied;
+
+	if (this == &inst)
+		return (*this);
+	else
 	{
+		copied = new Cure(inst);
+		return (*copied);
 	}
 }
 
-const std::string& AMateria::getType(void) const{
-	return (_type);
-}
-
-AMateria*	AMateria::clone(void) const
+AMateria*	Cure::clone(void) const
 {
 	Cure	*newinst;
-	newinst = new Cure();
+	newinst = new Cure(*this);
 	return (newinst);
-}
-
-void	AMateria::use(ICharacter& target)
-{
-	std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }
