@@ -4,27 +4,29 @@
 
 #include <string>
 #include <iostream>
+#include "util.hpp"
 
 class Animal
 {
 	private:
+
+	protected:
+		std::string			_type;
 	
 	public:
-	Animal( void );
-	Animal( const Animal &o );
-	Animal( const std::string &type );
-	virtual ~Animal( void );
-	Animal& operator=( const Animal &o );
+		Animal(void);
+		Animal(const Animal& o);
+		Animal(const std::string& type);
+		virtual ~Animal(void);
 
-	//member
-	const std::string	getType( void ) const;
-	void				setType( const std::string &type );
-	virtual void		makeSound( void ) const;
-	
-	protected:
-	std::string	_type;
+		Animal& 			operator=(const Animal& o);
+		
+		const std::string	getType(void) const;
+		void				setType(const std::string type);
+		virtual void		makeSound(void) const;
+
 };
 
-std::ostream &operator<<(std::ostream &os, const Animal &a);
+std::ostream& operator<<(std::ostream& os, const Animal& a);
 
 #endif

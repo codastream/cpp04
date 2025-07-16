@@ -9,17 +9,15 @@
 class Cat : public Animal
 {
 	private:
-	
-	public:
-	Cat( void );
-	Cat( const Cat &o );
-	~Cat( void );
-	Cat& operator=( const Cat &o );
-	
-	//member
-	void				makeSound( void ) const;
-
 	protected:
+	public:
+		Cat(void);
+		Cat(const Cat& o);
+		~Cat(void);
+
+		Cat& 				operator=(const Cat& o);
+
+		void				makeSound(void) const;
 };
 
 #endif

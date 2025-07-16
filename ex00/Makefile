@@ -58,10 +58,12 @@ BUILD_DIR		:=	.build
 # no duplicates
 
 SRCS_FILES:=	main.cpp\
+				util.cpp\
 				Animal.class.cpp\
 				Dog.class.cpp\
 				Cat.class.cpp\
-				util.cpp\
+				WrongCat.class.cpp\
+				WrongAnimal.class.cpp\
 
 SRCS:=			$(addprefix $(SRC_DIR)/, $(SRCS_FILES))
 

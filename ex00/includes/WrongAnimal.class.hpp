@@ -8,23 +8,23 @@
 class WrongAnimal
 {
 	private:
+
+	protected:
+		std::string	_type;
 	
 	public:
-	WrongAnimal( void );
-	WrongAnimal( const WrongAnimal &o );
-	WrongAnimal( const std::string &type );
-	virtual ~WrongAnimal( void );
-	virtual WrongAnimal& operator=( const WrongAnimal &o );
+		WrongAnimal(void);
+		WrongAnimal(const WrongAnimal& o);
+		WrongAnimal(const std::string& type);
+		virtual ~WrongAnimal( void );
 
-	//member
-	const std::string	getType( void ) const;
-	void				setType( const std::string &type );
-	virtual void		makeSound( void ) const;
-	
-	protected:
-	std::string	_type;
+		virtual WrongAnimal& operator=(const WrongAnimal& o);
+
+		const std::string	getType(void) const;
+		void				setType(const std::string& type);
+		virtual void		makeSound(void) const;
 };
 
-std::ostream &operator<<(std::ostream &os, const WrongAnimal &a);
+std::ostream &operator<<(std::ostream& os, const WrongAnimal& a);
 
 #endif
