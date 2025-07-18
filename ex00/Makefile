@@ -2,7 +2,7 @@ NAME		:=	ex00
 
 #==============================COMPIL===========================#
 
-CC			:=	g++
+CC			:=	c++
 CFLAGS		:=	-Wall -Wextra -Werror -std=c++98
 
 ifeq ($(DEBUG), 1)
