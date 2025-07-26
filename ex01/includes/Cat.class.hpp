@@ -9,20 +9,18 @@
 
 class Cat : public Animal
 {
-	private:
-	Brain *_brain;
-	
-	public:
-	Cat( void );
-	Cat( const Cat &o );
-	~Cat( void );
-	Cat& operator=( const Cat &o );
-	
-	//member
-	void				makeSound( void ) const;
-	Brain* 				getBrain( void );
 
-	protected:
+	public:
+		Cat(void);
+		Cat(const Cat &o);
+		~Cat(void);
+		Cat& operator=(const Cat &o);
+		
+		void				makeSound(void) const;
+		Brain* 				getBrain(void);
+
+	private:
+		Brain *_brain;
 };
 
 #endif

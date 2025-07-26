@@ -1,38 +1,48 @@
-#include "../includes/Dog.class.hpp"
-#include "../includes/Brain.class.hpp"
-#include "../includes/util.hpp"
+#include "Dog.class.hpp"
+#include "Brain.class.hpp"
+#include "util.hpp"
 
-Dog::Dog( void ) : Animal("Dog")
+Dog::Dog(void) : Animal("Dog"), _brain(new Brain())
 {
-	std::cout << "default constructor called for " <<  BLUE << "Dog class" \
-	<< NC << std::endl;
-	_brain = new Brain();
-}
-
-Dog::Dog( const Dog& o ) : Animal(o), _brain(o._brain)
-{
-	std::cout << "copy constructor called for " <<  BLUE << "Dog class" \
+	std::cout << "default constructor called for " <<  GREEN << "Dog class" \
 	<< NC << std::endl;
 }
 
-Dog::~Dog( void ) 
+Dog::Dog(const Dog& o) : Animal(o), _brain(o._brain)
 {
-	std::cout << "destructor called for " <<  BLUE << "Dog class" \
+	std::cout << "copy constructor called for " <<  GREEN << "Dog class" \
+	<< NC << std::endl;
+	if (this != &o)
+	{
+		Animal::operator=(o);
+		_brain = new Brain(*o._brain);
+	}
+}
+
+Dog::~Dog(void) 
+{
+	std::cout << "destructor called for " <<  GREEN << "Dog class" \
 	<< NC << std::endl;
 	delete _brain;
 }
 
-Dog& Dog::operator=( const Dog &o )
+Dog& Dog::operator=(const Dog &o)
 {
 	if (this != &o)
 	{
-		_type = o._type;
-		_brain = o._brain;
+		Animal::operator=(o);
+		delete _brain;
+		_brain = new Brain(*o._brain);
 	}
 	return (*this);
 }
 
-void	Dog::makeSound( void ) const
+void	Dog::makeSound(void) const
 {
-	put_nl("Wouah 🐶");
+	putcol(GREEN, "Wah 🐶");
+}
+
+Brain* 		Dog::getBrain( void )
+{
+	return (_brain);
 }

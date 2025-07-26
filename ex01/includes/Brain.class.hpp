@@ -7,19 +7,20 @@
 class Brain
 {
 	private:
-	std::string _ideas[100];
+		std::string _ideas[100];
 	
 	public:
-	Brain( void );
-	Brain( const Brain &o );
-	~Brain( void );
-	Brain& operator=( const Brain &o );
-	
-	//member
-	std::string getIdeaByIndex(unsigned int index);
-	void		setIdea(unsigned int index, const std::string &s);
+		Brain(void);
+		Brain(const Brain &o);
+		~Brain(void);
+		Brain& operator=(const Brain &o);
+		
+		std::string getIdeaByIndex(unsigned int index) const;
+		void		setIdea(unsigned int index, const std::string &s);
 
 	protected:
 };
+
+std::ostream& operator<<(std::ostream& os, const Brain& b);
 
 #endif

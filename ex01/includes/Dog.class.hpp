@@ -10,18 +10,16 @@
 class Dog : public Animal
 {
 	private:
-	Brain *_brain;
+		Brain *_brain;
 
 	public:
-	Dog( void );
-	Dog( const Dog &o );
-	~Dog( void );
-	Dog& operator=( const Dog &o );
+		Dog(void);
+		Dog(const Dog &o);
+		~Dog(void);
+		Dog& operator=(const Dog &o);
 
-	//member
-	void				makeSound( void ) const;
-
-	protected:
+		void				makeSound(void) const;
+		Brain* 				getBrain(void);
 };
 
 #endif
