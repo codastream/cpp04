@@ -8,8 +8,6 @@
 
 class Cat : public Animal
 {
-	private:
-	protected:
 	public:
 		Cat(void);
 		Cat(const Cat& o);

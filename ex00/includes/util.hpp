@@ -24,7 +24,7 @@
 # define CAT		BCYAN
 # define DOG		BBLUE
 
-void	printcol(std::string col, std::string msg);
-void	putnl(std::string msg);
+void	put_nl(const std::string& msg);
+void	putcol(const std::string& col, const std::string& msg);
 
 #endif

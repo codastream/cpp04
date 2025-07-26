@@ -3,7 +3,6 @@
 
 Cat::Cat(void) : Animal("Cat")
 {
-	// _type = "Cat";
 	std::cout << "default constructor called for " <<  BLUE << "Cat class" \
 	<< NC << std::endl;
 }
@@ -23,11 +22,13 @@ Cat::~Cat(void)
 Cat& Cat::operator=(const Cat& o)
 {
 	if (this != &o)
-		_type = o._type;
+	{
+		Animal::operator=(o);
+	}
 	return (*this);
 }
 
 void	Cat::makeSound(void) const
 {
-	put_nl("Meow 😺");
+	putcol(BLUE, "Meow 😺");
 }

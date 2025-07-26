@@ -1,6 +1,6 @@
 
-#ifndef CAT_CLASS_HPP
-# define CAT_CLASS_HPP
+#ifndef WRONGCAT_CLASS_HPP
+# define WRONGCAT_CLASS_HPP
 
 # include <string>
 # include <iostream>
@@ -8,16 +8,12 @@
 
 class WrongCat : public WrongAnimal
 {
-	private:
-
-	protected:
-	
 	public:
-	WrongCat(void);
-	WrongCat(const WrongCat& o);
-	~WrongCat(void);
+		WrongCat(void);
+		WrongCat(const WrongCat& o);
+		~WrongCat(void);
 
-	WrongCat& 	operator=(const WrongCat& o);
+		WrongCat& 	operator=(const WrongCat& o);
 };
 
 #endif

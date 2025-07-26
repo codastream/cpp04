@@ -8,8 +8,6 @@
 
 class Animal
 {
-	private:
-
 	protected:
 		std::string			_type;
 	
@@ -22,7 +20,7 @@ class Animal
 		Animal& 			operator=(const Animal& o);
 		
 		const std::string	getType(void) const;
-		void				setType(const std::string type);
+		void				setType(const std::string& type);
 		virtual void		makeSound(void) const;
 
 };

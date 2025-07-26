@@ -5,7 +5,7 @@
  *				🥚 CONSTRUCTORS & DESTRUCTOR				*
  ************************************************************/
 
-Animal::Animal(void) 
+Animal::Animal(void) : _type("default animal")
 {
 	std::cout << "default constructor called for " << ORANGE << "Animal class" \
 		<< NC << std::endl;
@@ -17,10 +17,11 @@ Animal::Animal(const std::string& type) : _type(type)
 		<< NC << std::endl;
 }
 
-Animal::Animal(const Animal& o) : _type(o.getType())
+Animal::Animal(const Animal& o)
 {
 	std::cout << "copy constructor called for " <<  ORANGE << "Animal class" \
 		<< NC << std::endl;
+	*this = o;
 }
 Animal::~Animal(void) 
 {
@@ -65,5 +66,5 @@ void	Animal::setType(const std::string& type)
 
 void	Animal::makeSound(void) const
 {
-	put_nl("Animal 🦄");
+	putcol(YELLOW, "Pet sound 🏖️🦄");
 }
