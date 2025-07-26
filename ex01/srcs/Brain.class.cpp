@@ -16,7 +16,7 @@ Brain::Brain(const Brain &o)
 {
 	std::cout << "copy constructor called for " <<  BWHITE << "Brain class" \
 	<< NC << std::endl;
-	*this = o;
+	cpy_array_str(_ideas, o._ideas, 100);
 }
 
 Brain::~Brain(void) 

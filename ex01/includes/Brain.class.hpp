@@ -18,7 +18,6 @@ class Brain
 		std::string getIdeaByIndex(unsigned int index) const;
 		void		setIdea(unsigned int index, const std::string &s);
 
-	protected:
 };
 
 std::ostream& operator<<(std::ostream& os, const Brain& b);

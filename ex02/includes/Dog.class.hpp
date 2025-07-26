@@ -10,24 +10,16 @@
 class Dog : public AAnimal
 {
 	private:
-	std::string _type;
-	Brain 		*_brain;
+		Brain *_brain;
 
 	public:
-	Dog( void );
-	Dog( const Dog &o );
-	virtual ~Dog( void );
-	Dog& operator=( const Dog &o );
+		Dog(void);
+		Dog(const Dog &o);
+		~Dog(void);
+		Dog& operator=(const Dog &o);
 
-	//member
-	const std::string	getType( void ) const;
-	void				setType( const std::string &type );
-	void				makeSound( void ) const;
-	Brain* 				getBrain( void );
-	
-	protected:
+		void				makeSound(void) const;
+		Brain* 				getBrain(void);
 };
-
-// std::ostream &operator<<(std::ostream &os, const AAnimal *a);
 
 #endif
