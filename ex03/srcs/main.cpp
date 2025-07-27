@@ -3,6 +3,7 @@
 #include "Character.class.hpp"
 #include "Ice.class.hpp"
 #include "Cure.class.hpp"
+#include "Fire.class.hpp"
 #include "util.hpp"
 
 void testIceMateria(void)
@@ -126,33 +127,56 @@ void testMateriaSource(void)
 
 void testDefault(void)
 {
+	putcol(YELLOWBACK, "MateriaSource can learn any Materia");
 	IMateriaSource *src = new MateriaSource();
-	src->learnMateria(new Ice());
-	src->learnMateria(new Cure());
+	Ice ice;
+	src->learnMateria(&ice);
+	Cure cure;
+	src->learnMateria(&cure);
+	Fire fire;
+	src->learnMateria(&fire);
 
+	putcol(YELLOWBACK, "ICharacter::equip");
 	ICharacter* me = new Character("me");
-
 	AMateria *tmp;
+	AMateria *tmp1;
+	AMateria *tmp2;
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
-	tmp = src->createMateria("cure");
-	me->equip(tmp);
+	tmp1 = src->createMateria("cure");
+	me->equip(tmp1);
+	tmp2 = src->createMateria("fire");
+	me->equip(tmp2);
+	std::cout << static_cast<Character&>(*me) << std::endl;
 
+	putcol(YELLOWBACK, "ICharacter::use");
 	ICharacter* bob = new Character("bob");
-
 	me->use(0, *bob);
 	me->use(1, *bob);
+	me->use(2, *bob);
+	
+	putcol(YELLOWBACK, "ICharacter::unequip");
+	me->unequip(1);
+	std::cout << static_cast<Character&>(*me) << std::endl;
+
+	putcol(YELLOWBACK, "equip at first free slot");
+	me->equip(tmp1);
+	std::cout << static_cast<Character&>(*me) << std::endl;
 
 	delete bob;
 	delete me;
+	delete(tmp);
+	delete(tmp1);
+	delete(tmp2);
 	delete src;
 }
 
 int main( void )
 {
-	// testIceMateria();
-	// testCureMateria();
-	// testCharacter();
+	testIceMateria();
+	testCureMateria();
+	testCharacter();
 	testMateriaSource();
+	testDefault();
 	return 0;
 }

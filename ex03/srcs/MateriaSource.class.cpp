@@ -84,7 +84,6 @@ void	MateriaSource::learnMateria(AMateria* param)
 {
 	if (_nbMateria < MAT_NB_SRC)
 	{
-		std::cout << "learnt materia stored at index " << _nbMateria << std::endl;
 		_materias[_nbMateria] = param->clone();
 		_nbMateria++;
 	}

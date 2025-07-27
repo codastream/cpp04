@@ -1,25 +1,25 @@
-#include "Cure.class.hpp"
+#include "Fire.class.hpp"
 #include "util.hpp"
 
 /************************************************************
 *				🥚 CONSTRUCTORS & DESTRUCTOR				*
 ************************************************************/
 
-Cure::Cure(void): AMateria("cure")
+Fire::Fire(void): AMateria("fire")
 {
-	std::cout << "default constructor called for " <<  GREEN << "Cure class" \
+	std::cout << "default constructor called for " <<  ORANGE << "Fire class" \
 		<< NC << std::endl;
 }
 
-Cure::Cure(const Cure& inst): AMateria(inst)
+Fire::Fire(const Fire& inst): AMateria(inst)
 {
-	std::cout << "copy constructor called for " <<  GREEN << "Cure class" \
+	std::cout << "copy constructor called for " <<  ORANGE << "Fire class" \
 		<< NC << std::endl;
 }
 
-Cure::~Cure(void)
+Fire::~Fire(void)
 {
-	std::cout << "destructor called for " <<  GREEN << "Cure class" \
+	std::cout << "destructor called for " <<  ORANGE << "Fire class" \
 		<< NC << std::endl;
 }
 
@@ -27,15 +27,15 @@ Cure::~Cure(void)
 *				➕ OPERATORS									*
 ************************************************************/
 
-Cure& Cure::operator=(const Cure& inst)
+Fire& Fire::operator=(const Fire& inst)
 {
-	Cure	*copied;
+	Fire	*copied;
 
 	if (this == &inst)
 		return (*this);
 	else
 	{
-		copied = new Cure(inst);
+		copied = new Fire(inst);
 		return (*copied);
 	}
 }
@@ -44,14 +44,14 @@ Cure& Cure::operator=(const Cure& inst)
 *				🛠️ FUNCTIONS									*
 *************************************************************/
 
-AMateria*	Cure::clone(void) const
+AMateria*	Fire::clone(void) const
 {
-	Cure	*newinst;
-	newinst = new Cure(*this);
+	Fire	*newinst;
+	newinst = new Fire(*this);
 	return (newinst);
 }
 
-void		Cure::use(ICharacter& target)
+void		Fire::use(ICharacter& target)
 {
-		std::cout << GREEN << "* heals " << target.getName() << "'s wounds *" << NC << std::endl;
+		std::cout << ORANGE << "* shoots a fireball at " << target.getName() << " *" << std::endl;
 }

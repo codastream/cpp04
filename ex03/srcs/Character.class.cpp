@@ -18,7 +18,7 @@ Character::Character(Character& inst): _name(inst.getName()), _nbMateria(inst._n
 		<< NC << std::endl;
 	for (int i = 0; i < inst._nbMateria ; i++)
 	{
-		_materias[i] = inst.getMateria(i);
+		_materias[i] = inst.getMateria(i)->clone();
 	}
 }
 
@@ -33,9 +33,10 @@ Character::~Character (void)
 {
 	std::cout << "destructor called for " <<  CHAR << "Character class" \
 		<< NC << std::endl;
-	for (int i = 0; i < _nbMateria ; i++)
+	for (int i = 0; i < MAT_NB ; i++)
 	{
-		delete _materias[i];
+		if (_materias[i])
+			unequip(i);
 	}
 }
 
@@ -47,8 +48,9 @@ Character& Character::operator=(const Character& inst)
 {
 	for (int i = 0; i < MAT_NB; i++)
 	{
-		delete _materias[i];
-		_materias[i] = inst.getMateria(i);
+		if (_materias[i])
+			delete _materias[i];
+		_materias[i] = inst.getMateria(i)->clone();
 	}
 	_nbMateria = inst._nbMateria;
 	_name = inst.getName();
@@ -58,10 +60,13 @@ Character& Character::operator=(const Character& inst)
 std::ostream& operator<<(std::ostream& os, const Character& o)
 {
 	os << CHAR << "Character @ address " << &o << "with _name " << o.getName() \
-	<< "inventory: " << NC << std::endl;
+	<< " and inventory: " << NC << std::endl;
 	for (int i = 0; i < MAT_NB; i++)
 	{
-		os << "*" << *(o.getMateria(i)) << std::endl;
+		if (o.getMateria(i))
+			os << "slot#" << i << " => " << *(o.getMateria(i));
+		else
+			os << "slot#" << i << std::endl;
 	}
 	os << NC << std::endl;
 	return os;
@@ -73,7 +78,7 @@ std::ostream& operator<<(std::ostream& os, const Character& o)
 
 AMateria* Character::getMateria(unsigned int idx) const
 {
-	if ((int) idx < MAT_NB && (int) idx < _nbMateria)
+	if ((int) idx < MAT_NB)
 	{
 		return (_materias[idx]);
 	}
@@ -100,13 +105,11 @@ void Character::_initMaterias(void)
 
 void	Character::equip(AMateria* m)
 {
-	std::cout << "equip call of " <<  CHAR << "Character class" \
-		<< NC << std::endl;
 	for (int i = 0; i < MAT_NB; i++)
 	{
 		if (!_materias[i])
 		{
-			_materias[i] = m->clone();
+			_materias[i] = m;
 			_nbMateria++;
 			return ;
 		}
@@ -115,8 +118,7 @@ void	Character::equip(AMateria* m)
 
 void	Character::unequip(int idx)
 {
-	std::cout << "nb mat is " << _nbMateria << std::endl;
-	if (idx < 0 || idx >= MAT_NB || idx >= _nbMateria || !_materias[idx])
+	if (idx < 0 || idx >= MAT_NB || !_materias[idx])
 		return ;
 	_materias[idx] = NULL;
 	_nbMateria--;
