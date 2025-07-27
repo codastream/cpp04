@@ -7,23 +7,19 @@
 *				🥚 CONSTRUCTORS & DESTRUCTOR				*
 ************************************************************/
 
-MateriaSource::MateriaSource(void)
+MateriaSource::MateriaSource(void) : _nbMateria(0)
 {
 	std::cout << "default constructor called for " <<  MATS << "MateriaSource class" \
 		<< NC << std::endl;
-	for (int i = 0; i < MAT_NB_SRC; i++)
-	{
-		_materias[i] = NULL;
-	}
 }
 
-MateriaSource::MateriaSource(MateriaSource& inst)
+MateriaSource::MateriaSource(MateriaSource& inst) : _nbMateria(inst._nbMateria)
 {
 	std::cout << "copy constructor called for " <<  MATS << "MateriaSource class" \
 		<< NC << std::endl;
-	for (int i = 0; i < MAT_NB_SRC; i++)
+	for (int i = 0; i < inst._nbMateria; i++)
 	{
-		_materias[i] = this->createMateria(inst._materias[i]->getType());
+		_materias[i] = inst._materias[i]->clone();
 	}
 }
 
@@ -31,7 +27,7 @@ MateriaSource::~MateriaSource(void)
 {
 	std::cout << "destructor called for " <<  MATS << "MateriaSource class" \
 		<< NC << std::endl;
-	for (int i = 0; i < MAT_NB_SRC; i++)
+	for (int i = 0; i < _nbMateria; i++)
 	{
 		delete _materias[i];
 	}
@@ -43,12 +39,41 @@ MateriaSource::~MateriaSource(void)
 
 MateriaSource& MateriaSource::operator=(MateriaSource& inst)
 {
-	for (int i = 0; i < MAT_NB_SRC; i++)
+	for (int i = 0; i < inst._nbMateria; i++)
 	{
 		delete _materias[i];
-		_materias[i] = this->createMateria(inst._materias[i]->getType());
+		_materias[i] = inst._materias[i]->clone();
+		_nbMateria++;
 	}
 	return (*this);
+}
+
+std::ostream& operator<<(std::ostream& os, const MateriaSource& o)
+{
+	os << MATS << "Materia Source @ address " << &o << " with " << o.getNbMateria() << " materias : " << NC << std::endl;
+	for (int i = 0; i < o.getNbMateria() ; i++)
+	{
+		os << "*" << (*o.getMateria(i));
+	}
+	return os;
+}
+
+/*************************************************************
+*				👁️‍ GETTERS and SETTERS						*
+*************************************************************/
+
+AMateria* MateriaSource::getMateria(unsigned int idx) const
+{
+	if ((int) idx < _nbMateria)
+	{
+		return _materias[idx];
+	}
+	return (NULL);
+}
+
+int			MateriaSource::getNbMateria(void) const
+{
+	return _nbMateria;
 }
 
 /*************************************************************
@@ -57,22 +82,21 @@ MateriaSource& MateriaSource::operator=(MateriaSource& inst)
 
 void	MateriaSource::learnMateria(AMateria* param)
 {
-	for (int i = 0; i < MAT_NB_SRC; i++)
+	if (_nbMateria < MAT_NB_SRC)
 	{
-		if (_materias[i] == NULL)
-		{
-			_materias[i] = param;
-			return ;
-		}
+		std::cout << "learnt materia stored at index " << _nbMateria << std::endl;
+		_materias[_nbMateria] = param->clone();
+		_nbMateria++;
 	}
-	std::cerr << RED << "no space left for learning materia" << NC << std::endl;
+	else
+		std::cerr << RED << "no space left for learning materia" << NC << std::endl;
 }
 
 AMateria*	MateriaSource::createMateria(const std::string& type)
 {
 	AMateria* ret = 0;
 
-	for (int i = 0; i < MAT_NB_SRC; i++)
+	for (int i = 0; i < _nbMateria; i++)
 	{
 		if (_materias[i] && type == _materias[i]->getType())
 		{

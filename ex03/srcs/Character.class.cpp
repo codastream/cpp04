@@ -73,7 +73,7 @@ std::ostream& operator<<(std::ostream& os, const Character& o)
 
 AMateria* Character::getMateria(unsigned int idx) const
 {
-	if (idx < MAT_NB)
+	if ((int) idx < MAT_NB && (int) idx < _nbMateria)
 	{
 		return (_materias[idx]);
 	}

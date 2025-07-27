@@ -12,13 +12,39 @@ void testIceMateria(void)
 	Ice *ice = new Ice();
 	putcol(YELLOWBACK, "copy constructor");
 	Ice *copied(ice);
+	std::cout << *copied << std::endl;
 	putcol(YELLOWBACK, "clone");
 	Ice *cloned = static_cast<Ice *>(ice->clone());
+	std::cout << *cloned << std::endl;
+
 	putcol(YELLOWBACK, "use");
 	Character *princess = new Character("Frozen");
 	copied->use(*princess);
+
 	putcol(YELLOWBACK, "destructor");
 	delete ice;
+	delete cloned;
+	delete princess; // let it go
+}
+
+void testCureMateria(void)
+{
+	putcol(PURPLEBACK, "CURE");
+	putcol(YELLOWBACK, "default constructor");
+	Cure *cure = new Cure();
+	putcol(YELLOWBACK, "copy constructor");
+	Cure *copied(cure);
+	std::cout << *copied << std::endl;
+	putcol(YELLOWBACK, "clone");
+	Cure *cloned = static_cast<Cure *>(cure->clone());
+	std::cout << *cloned << std::endl;
+
+	putcol(YELLOWBACK, "use");
+	Character *princess = new Character("Frozen");
+	copied->use(*princess);
+
+	putcol(YELLOWBACK, "destructor");
+	delete cure;
 	delete cloned;
 	delete princess; // let it go
 }
@@ -66,9 +92,36 @@ void testMateriaSource(void)
 	putcol(PURPLEBACK, "MATERIA SOURCE");
 	putcol(YELLOWBACK, "default constructor");
 	MateriaSource ms;
+	
 	putcol(YELLOWBACK, "learn");
 	Ice ice;
+	Cure cure;
 	ms.learnMateria(&ice);
+	ms.learnMateria(&ice);
+	std::cout << ms << std::endl;
+
+	putcol(YELLOWBACK, "copy constructor");
+	MateriaSource ms2(ms);
+	putcol(YELLOWBACK, "checking deep copy : should have same materias");
+	std::cout << ms2 << std::endl;
+	putcol(YELLOWBACK, "checking deep copy : should evolve differently");
+	ms2.learnMateria(&cure);
+	ms2.learnMateria(&cure);
+	putcol(YELLOW, "ms has still same 2 copies");	
+	std::cout << ms << std::endl;
+	putcol(YELLOW, "ms2 has also 2 new copies");
+	std::cout << ms2 << std::endl;
+	
+	putcol(REDBACK, "learning when full");
+	ms2.learnMateria(&cure);
+
+	putcol(YELLOWBACK, "create");
+	AMateria *c1 = ms2.createMateria("cure");
+	delete c1;
+	putcol(REDBACK, "create not in store");
+	ms.createMateria("cure");
+	putcol(REDBACK, "create unknown");
+	ms2.createMateria("curedent");
 }
 
 void testDefault(void)
@@ -97,6 +150,9 @@ void testDefault(void)
 
 int main( void )
 {
-	testCharacter();
+	// testIceMateria();
+	// testCureMateria();
+	// testCharacter();
+	testMateriaSource();
 	return 0;
 }

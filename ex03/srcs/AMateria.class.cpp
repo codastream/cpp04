@@ -33,7 +33,7 @@ AMateria::~AMateria(void)
 
 std::ostream& operator<<(std::ostream& os, const AMateria& o)
 {
-	os << AMAT << "AMateria @ address " << &o << "with type " << o.getType() << NC << std::endl;
+	os << AMAT << "AMateria @ address " << &o << " with type " << o.getType() << NC << std::endl;
 	return os;
 }
 
