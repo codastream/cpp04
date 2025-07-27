@@ -1,25 +1,20 @@
 #include "Ice.class.hpp"
 #include "util.hpp"
 
-Ice::Ice(void): AMateria()
+/************************************************************
+*				🥚 CONSTRUCTORS & DESTRUCTOR				*
+************************************************************/
+
+Ice::Ice(void): AMateria("ice")
 {
 	std::cout << "default constructor called for " <<  BLUE << "Ice class" \
 		<< NC << std::endl;
-	_type = "ice";
 }
 
 Ice::Ice(const Ice& inst) : AMateria(inst)
 {
 	std::cout << "copy constructor called for " <<  BLUE << "Ice class" \
 		<< NC << std::endl;
-	this->_type = inst.getType();
-}
-
-Ice::Ice(const std::string& type)
-{
-	std::cout << "param type constructor called for " <<  BLUE << "Ice class" \
-		<< NC << std::endl;
-	this->_type = type;
 }
 
 Ice::~Ice(void)
@@ -27,6 +22,10 @@ Ice::~Ice(void)
 	std::cout << "destructor called for " <<  BLUE << "Ice class" \
 		<< NC << std::endl;
 }
+
+/************************************************************
+*				➕ OPERATORS									*
+************************************************************/
 
 Ice& Ice::operator=(const Ice& inst)
 {
@@ -40,9 +39,18 @@ Ice& Ice::operator=(const Ice& inst)
 	}
 }
 
+/*************************************************************
+*				🛠️ FUNCTIONS									*
+*************************************************************/
+
 AMateria* Ice::clone(void) const
 {
 	Ice		*newinst;
 	newinst = new Ice(*this);
 	return (newinst);
+}
+
+void				Ice::use(ICharacter& target)
+{
+	std::cout << BLUE << "* shoots an ice bolt at " << target.getName() << std::endl;
 }

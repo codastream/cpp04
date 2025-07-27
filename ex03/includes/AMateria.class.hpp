@@ -14,16 +14,18 @@ class AMateria
 		std::string	_type;
 
 	public:
-		AMateria(const std::string& type);
 		AMateria(void);
 		AMateria(const AMateria& inst);
-		AMateria& operator= (const AMateria& inst);
+		AMateria(const std::string& type);
 		virtual ~AMateria(void);
 
-		// member
+		AMateria& operator= (const AMateria& inst);
+
 		const std::string&	getType(void) const;
 		virtual AMateria*	clone(void) const = 0;
 		virtual void		use(ICharacter& target);
 };
+
+std::ostream& operator<<(std::ostream& os, const AMateria& o);
 
 #endif

@@ -1,20 +1,40 @@
 #include "AMateria.class.hpp"
 
-AMateria::AMateria( void )
+/************************************************************
+*				🥚 CONSTRUCTORS & DESTRUCTOR				*
+************************************************************/
+
+AMateria::AMateria(void) : _type("default amateria")
 {
-	std::cout << "default constructor called for " <<  BLUE << "AMateria class" \
+	std::cout << "default constructor called for " <<  AMAT << "AMateria class" \
+		<< NC << std::endl;
+}
+
+AMateria::AMateria(const std::string& type) : _type(type)
+{
+	std::cout << "param constructor type called for " <<  AMAT << "AMateria class" \
 		<< NC << std::endl;
 }
 
 AMateria::AMateria(const AMateria &inst) : _type(inst.getType())
 {
-	std::cout << "copy constructor called for " <<  BLUE << "AMateria class" \
+	std::cout << "copy constructor called for " <<  AMAT << "AMateria class" \
 		<< NC << std::endl;
 }
 AMateria::~AMateria(void)
 {
-	std::cout << "destructor called for " <<  BLUE << "AMateria class" \
+	std::cout << "destructor called for " <<  AMAT << "AMateria class" \
 	<< NC << std::endl;
+}
+
+/************************************************************
+*				➕ OPERATORS									*
+************************************************************/
+
+std::ostream& operator<<(std::ostream& os, const AMateria& o)
+{
+	os << AMAT << "AMateria @ address " << &o << "with type " << o.getType() << NC << std::endl;
+	return os;
 }
 
 AMateria& AMateria::operator=(const AMateria& inst)
@@ -24,15 +44,20 @@ AMateria& AMateria::operator=(const AMateria& inst)
 	return (*this);
 }
 
+/*************************************************************
+*				👁️‍ GETTERS and SETTERS						*
+*************************************************************/
+
 const std::string& AMateria::getType(void) const
 {
 	return (_type);
 }
 
-void AMateria::use(ICharacter& target)
+/*************************************************************
+*				🛠️ FUNCTIONS									*
+*************************************************************/
+
+void		AMateria::use(ICharacter& target)
 {
-	if (!_type.compare("ice"))
-		std::cout << "* shoots an ice bolt at " << target.getName() << std::endl;
-	else if (!_type.compare("cure"))
-		std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
+	std::cout << AMAT << "called AMateria::use for target " << target.getName() << NC << std::endl;
 }

@@ -1,67 +1,81 @@
 #include "Character.class.hpp"
 #include "util.hpp"
 
-void Character::initMaterias(void)
+/************************************************************
+*				🥚 CONSTRUCTORS & DESTRUCTOR				*
+************************************************************/
+
+Character::Character (void): _name("default"), _nbMateria(0)
 {
-	for (int i = 0; i < MAT_NB; i++)
+	std::cout << "default constructor called for " <<  CHAR << "Character class" \
+		<< NC << std::endl;
+	_initMaterias();
+}
+
+Character::Character(Character& inst): _name(inst.getName()), _nbMateria(inst._nbMateria)
+{
+	std::cout << "copy constructor called for " <<  CHAR << "Character class" \
+		<< NC << std::endl;
+	for (int i = 0; i < inst._nbMateria ; i++)
 	{
-		this->_materias[i] = NULL;
+		_materias[i] = inst.getMateria(i);
 	}
 }
 
-Character::Character (void): _name("default")
+Character::Character (const std::string& name): _name(name), _nbMateria(0)
 {
-	std::cout << "default constructor called for " <<  BLUE << "Character class" \
+	std::cout << "parameter name constructor called for " <<  CHAR << "Character class" \
 		<< NC << std::endl;
-	initMaterias();
-}
-
-Character::Character(Character& inst): _name(inst.getName())
-{
-	std::cout << "copyconstructor called for " <<  BLUE << "Character class" \
-		<< NC << std::endl;
-	for (int i = 0; i < MAT_NB; i++)
-	{
-		this->_materias[i] = inst.getMateria(i);
-	}
-}
-
-Character::Character (const std::string& name): _name(name)
-{
-	std::cout << "parameter name constructor called for " <<  BLUE << "Character class" \
-		<< NC << std::endl;
-	initMaterias();
+	_initMaterias();
 }
 
 Character::~Character (void)
 {
-	std::cout << "destructor called for " <<  BLUE << "Character class" \
+	std::cout << "destructor called for " <<  CHAR << "Character class" \
 		<< NC << std::endl;
-	for (int i = 0; i < MAT_NB; i++)
+	for (int i = 0; i < _nbMateria ; i++)
 	{
-		if (this->_materias[i])
-			delete this->_materias[i];
+		delete _materias[i];
 	}
 }
+
+/************************************************************
+*				➕ OPERATORS									*
+************************************************************/
 
 Character& Character::operator=(const Character& inst) 
 {
 	for (int i = 0; i < MAT_NB; i++)
 	{
-		delete this->_materias[i];
-		this->_materias[i] = inst.getMateria(i);
+		delete _materias[i];
+		_materias[i] = inst.getMateria(i);
 	}
-	this->_name = inst.getName();
+	_nbMateria = inst._nbMateria;
+	_name = inst.getName();
 	return (*this);
 }
 
-// member functions
+std::ostream& operator<<(std::ostream& os, const Character& o)
+{
+	os << CHAR << "Character @ address " << &o << "with _name " << o.getName() \
+	<< "inventory: " << NC << std::endl;
+	for (int i = 0; i < MAT_NB; i++)
+	{
+		os << "*" << *(o.getMateria(i)) << std::endl;
+	}
+	os << NC << std::endl;
+	return os;
+}
+
+/*************************************************************
+*				👁️‍ GETTERS and SETTERS						*
+*************************************************************/
 
 AMateria* Character::getMateria(unsigned int idx) const
 {
 	if (idx < MAT_NB)
 	{
-		return (this->_materias[idx]);
+		return (_materias[idx]);
 	}
 	else
 		return (NULL);
@@ -72,16 +86,28 @@ const std::string& Character::getName() const
 	return (this->_name);
 }
 
-// clone materia + free dans unequip ?
+/*************************************************************
+*				🛠️ FUNCTIONS									*
+*************************************************************/
+
+void Character::_initMaterias(void)
+{
+	for (int i = 0; i < MAT_NB; i++)
+	{
+		_materias[i] = NULL;
+	}
+}
+
 void	Character::equip(AMateria* m)
 {
-	std::cout << "equip call of " <<  YELLOW << "Character class" \
+	std::cout << "equip call of " <<  CHAR << "Character class" \
 		<< NC << std::endl;
 	for (int i = 0; i < MAT_NB; i++)
 	{
-		if (!this->_materias[i])
+		if (!_materias[i])
 		{
-			this->_materias[i] = m;
+			_materias[i] = m->clone();
+			_nbMateria++;
 			return ;
 		}
 	}
@@ -89,17 +115,24 @@ void	Character::equip(AMateria* m)
 
 void	Character::unequip(int idx)
 {
-
-	if (idx < 0 || idx >= MAT_NB || !this->_materias[idx])
+	std::cout << "nb mat is " << _nbMateria << std::endl;
+	if (idx < 0 || idx >= MAT_NB || idx >= _nbMateria || !_materias[idx])
 		return ;
-	this->_materias[idx] = NULL;
+	_materias[idx] = NULL;
+	_nbMateria--;
 }
 
 void	Character::use(int idx, ICharacter& target)
 {
 	if (idx < 0 || idx >= MAT_NB)
-		std::cerr << "invalid index" << std::endl;
-	if (!this->_materias[idx])
-		std::cerr << "nothing at this index" << std::endl;
-	this->_materias[idx]->use(target);
+	{
+		std::cerr << RED << "invalid index" << NC << std::endl;
+		return;
+	}
+	if (!_materias[idx])
+	{
+		std::cerr << RED << "nothing at this index" << NC << std::endl;
+		return;
+	}
+	_materias[idx]->use(target);
 }

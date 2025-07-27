@@ -1,32 +1,31 @@
 #include "Cure.class.hpp"
 #include "util.hpp"
 
-// necessaire d appeler le const du parent ?
-Cure::Cure(void): AMateria()
+/************************************************************
+*				🥚 CONSTRUCTORS & DESTRUCTOR				*
+************************************************************/
+
+Cure::Cure(void): AMateria("cure")
 {
-	std::cout << "default constructor called for " <<  BLUE << "Cure class" \
+	std::cout << "default constructor called for " <<  GREEN << "Cure class" \
 		<< NC << std::endl;
-	_type = "ice";
 }
 
 Cure::Cure(const Cure& inst): AMateria(inst)
 {
-	std::cout << "copy constructor called for " <<  BLUE << "Cure class" \
+	std::cout << "copy constructor called for " <<  GREEN << "Cure class" \
 		<< NC << std::endl;
-}
-
-Cure::Cure(const std::string& type)
-{
-	std::cout << "param type constructor called for " <<  BLUE << "Cure class" \
-		<< NC << std::endl;
-	this->_type = type;
 }
 
 Cure::~Cure(void)
 {
-	std::cout << "destructor called for " <<  BLUE << "Cure class" \
+	std::cout << "destructor called for " <<  GREEN << "Cure class" \
 		<< NC << std::endl;
 }
+
+/************************************************************
+*				➕ OPERATORS									*
+************************************************************/
 
 Cure& Cure::operator=(const Cure& inst)
 {
@@ -41,9 +40,18 @@ Cure& Cure::operator=(const Cure& inst)
 	}
 }
 
+/*************************************************************
+*				🛠️ FUNCTIONS									*
+*************************************************************/
+
 AMateria*	Cure::clone(void) const
 {
 	Cure	*newinst;
 	newinst = new Cure(*this);
 	return (newinst);
+}
+
+void		Cure::use(ICharacter& target)
+{
+		std::cout << GREEN << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }
