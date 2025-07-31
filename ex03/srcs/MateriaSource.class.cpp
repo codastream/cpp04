@@ -42,7 +42,8 @@ MateriaSource& MateriaSource::operator=(MateriaSource& inst)
 	for (int i = 0; i < inst._nbMateria; i++)
 	{
 		delete _materias[i];
-		_materias[i] = inst._materias[i]->clone();
+		if (inst._materias[i])
+			_materias[i] = inst._materias[i]->clone();
 		_nbMateria++;
 	}
 	return (*this);
@@ -84,11 +85,14 @@ void	MateriaSource::learnMateria(AMateria* param)
 {
 	if (_nbMateria < MAT_NB_SRC)
 	{
-		_materias[_nbMateria] = param->clone();
+		_materias[_nbMateria] = param;
 		_nbMateria++;
 	}
 	else
+	{
 		std::cerr << RED << "no space left for learning materia" << NC << std::endl;
+		delete param;
+	}
 }
 
 AMateria*	MateriaSource::createMateria(const std::string& type)

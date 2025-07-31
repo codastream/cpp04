@@ -37,6 +37,13 @@ std::ostream& operator<<(std::ostream& os, const AMateria& o)
 	return os;
 }
 
+// std::ostream& operator<<(std::ostream& os, AMateria *o)
+// {
+// 	if (o)
+// 		os << AMAT << "AMateria @ address " << *o << " with type " << o->getType() << NC << std::endl;
+// 	return os;
+// }
+
 AMateria& AMateria::operator=(const AMateria& inst)
 {
 	if (this != &inst)

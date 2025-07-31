@@ -17,13 +17,13 @@ class WrongAnimal
 		WrongAnimal(void);
 		WrongAnimal(const WrongAnimal& o);
 		WrongAnimal(const std::string& type);
-		virtual ~WrongAnimal( void );
+		~WrongAnimal( void );
 
-		virtual WrongAnimal& operator=(const WrongAnimal& o);
+		WrongAnimal& operator=(const WrongAnimal& o);
 
 		const std::string	getType(void) const;
 		void				setType(const std::string& type);
-		virtual void		makeSound(void) const;
+		void				makeSound(void) const;
 };
 
 std::ostream &operator<<(std::ostream& os, const WrongAnimal& a);

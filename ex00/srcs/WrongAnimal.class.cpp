@@ -1,6 +1,10 @@
 #include "WrongAnimal.class.hpp"
 #include "util.hpp"
 
+/************************************************************
+ *				🥚 CONSTRUCTORS & DESTRUCTOR				*
+ ************************************************************/
+
 WrongAnimal::WrongAnimal(void) 
 {
 	std::cout << "default constructor called for " <<  RED << "WrongAnimal class" \
@@ -13,10 +17,11 @@ WrongAnimal::WrongAnimal(const std::string& type) : _type(type)
 		<< NC << std::endl;
 }
 
-WrongAnimal::WrongAnimal(const WrongAnimal& o) : _type(o.getType())
+WrongAnimal::WrongAnimal(const WrongAnimal& o)
 {
 	std::cout << "copy constructor called for " <<  RED << "WrongAnimal class" \
 		<< NC << std::endl;
+	*this = o;
 }
 WrongAnimal::~WrongAnimal(void) 
 {
@@ -24,12 +29,27 @@ WrongAnimal::~WrongAnimal(void)
 		<< NC << std::endl;
 }
 
+/************************************************************
+ *				➕ OPERATORS									*
+ ************************************************************/
+
 WrongAnimal& WrongAnimal::operator=(const WrongAnimal& o)
 {
 	if (this != &o)
 		_type = o._type;
 	return (*this);
 }
+
+std::ostream &operator<<(std::ostream& os, const WrongAnimal& a)
+{
+	os << RED << "animal at address " << &a << " [type:" << a.getType() << "]" << NC;
+	return (os);
+}
+
+/*************************************************************
+*				👁️‍ GETTERS and SETTERS						*
+*************************************************************/
+
 
 const std::string WrongAnimal::getType(void) const
 {
@@ -41,11 +61,7 @@ void	WrongAnimal::setType(const std::string& type)
 	_type = type;
 }
 
-std::ostream &operator<<(std::ostream& os, const WrongAnimal& a)
-{
-	os << RED << "animal at address " << &a << " [type:" << a.getType() << "]" << NC;
-	return (os);
-}
+
 
 void	WrongAnimal::makeSound(void) const
 {

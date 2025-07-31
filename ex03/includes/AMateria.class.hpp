@@ -27,5 +27,6 @@ class AMateria
 };
 
 std::ostream& operator<<(std::ostream& os, const AMateria& o);
+// std::ostream& operator<<(std::ostream& os, AMateria *o);
 
 #endif

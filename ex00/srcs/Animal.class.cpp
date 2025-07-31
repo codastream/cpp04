@@ -47,8 +47,8 @@ std::ostream &operator<<(std::ostream& os, const Animal& a)
 }
 
 /*************************************************************
- *				👁️‍ GETTERS and SETTERS						*
- *************************************************************/
+*				👁️‍ GETTERS and SETTERS						*
+*************************************************************/
 
 const std::string Animal::getType(void) const
 {

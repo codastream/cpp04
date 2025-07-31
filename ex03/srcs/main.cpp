@@ -1,9 +1,8 @@
-#include "AMateria.class.hpp"
+#include "../includes/AMateria.class.hpp"
 #include "MateriaSource.class.hpp"
 #include "Character.class.hpp"
 #include "Ice.class.hpp"
 #include "Cure.class.hpp"
-#include "Fire.class.hpp"
 #include "util.hpp"
 
 void testIceMateria(void)
@@ -63,6 +62,7 @@ void testCharacter(void)
 	Cure cure;
 	frozen->equip(&ice);
 	frozen->equip(&cure);
+	frozen->equip(&ice);
 
 	putcol(YELLOWBACK, "use");
 	frozen->use(0, *badguy);
@@ -71,10 +71,7 @@ void testCharacter(void)
 	putcol(REDBACK, "use bad index");
 	frozen->use(4, *badguy);
 	putcol(REDBACK, "use with nothing");
-	frozen->use(2, *badguy);
-	// putcol(REDBACK, "use with deleted target"); // can't protect ?
-	// delete badguy;
-	// cha->use(0, *badguy);
+	frozen->use(3, *badguy);
 
 	putcol(YELLOWBACK, "equip");
 	putcol(REDBACK, "unequip negative index");
@@ -82,8 +79,19 @@ void testCharacter(void)
 	putcol(REDBACK, "unequip bad index");
 	frozen->unequip(4);
 	putcol(REDBACK, "unequip with nothing");
-	frozen->unequip(2);
+	frozen->unequip(3);
 
+	putcol(YELLOWBACK, "unequip middle index then assign nullproof");
+	frozen->unequip(1);
+	Character c2 = *frozen;
+	std::cout << *frozen << std::endl;
+	std::cout << c2 << std::endl;
+
+	for (int i = 0; i < MAT_NB; i++)
+	{
+		if (c2.getMateria(i))
+			delete (c2.getMateria(i));
+	}
 	delete frozen;
 	delete badguy;
 }
@@ -95,10 +103,8 @@ void testMateriaSource(void)
 	MateriaSource ms;
 	
 	putcol(YELLOWBACK, "learn");
-	Ice ice;
-	Cure cure;
-	ms.learnMateria(&ice);
-	ms.learnMateria(&ice);
+	ms.learnMateria(new Ice());
+	ms.learnMateria(new Ice());
 	std::cout << ms << std::endl;
 
 	putcol(YELLOWBACK, "copy constructor");
@@ -106,15 +112,15 @@ void testMateriaSource(void)
 	putcol(YELLOWBACK, "checking deep copy : should have same materias");
 	std::cout << ms2 << std::endl;
 	putcol(YELLOWBACK, "checking deep copy : should evolve differently");
-	ms2.learnMateria(&cure);
-	ms2.learnMateria(&cure);
+	ms2.learnMateria(new Cure());
+	ms2.learnMateria(new Cure());
 	putcol(YELLOW, "ms has still same 2 copies");	
 	std::cout << ms << std::endl;
 	putcol(YELLOW, "ms2 has also 2 new copies");
 	std::cout << ms2 << std::endl;
 	
 	putcol(REDBACK, "learning when full");
-	ms2.learnMateria(&cure);
+	ms2.learnMateria(new Cure());
 
 	putcol(YELLOWBACK, "create");
 	AMateria *c1 = ms2.createMateria("cure");
@@ -129,12 +135,8 @@ void testDefault(void)
 {
 	putcol(YELLOWBACK, "MateriaSource can learn any Materia");
 	IMateriaSource *src = new MateriaSource();
-	Ice ice;
-	src->learnMateria(&ice);
-	Cure cure;
-	src->learnMateria(&cure);
-	Fire fire;
-	src->learnMateria(&fire);
+	src->learnMateria(new Ice());
+	src->learnMateria(new Cure());
 
 	putcol(YELLOWBACK, "ICharacter::equip");
 	ICharacter* me = new Character("me");
@@ -145,7 +147,7 @@ void testDefault(void)
 	me->equip(tmp);
 	tmp1 = src->createMateria("cure");
 	me->equip(tmp1);
-	tmp2 = src->createMateria("fire");
+	tmp2 = src->createMateria("ice");
 	me->equip(tmp2);
 	std::cout << static_cast<Character&>(*me) << std::endl;
 

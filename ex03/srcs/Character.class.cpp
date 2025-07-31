@@ -16,9 +16,12 @@ Character::Character(Character& inst): _name(inst.getName()), _nbMateria(inst._n
 {
 	std::cout << "copy constructor called for " <<  CHAR << "Character class" \
 		<< NC << std::endl;
-	for (int i = 0; i < inst._nbMateria ; i++)
+	for (int i = 0; i < MAT_NB ; i++)
 	{
-		_materias[i] = inst.getMateria(i)->clone();
+		if (inst.getMateria(i))
+			_materias[i] = inst.getMateria(i)->clone();
+		else
+			_materias[i] = NULL;
 	}
 }
 
@@ -50,7 +53,10 @@ Character& Character::operator=(const Character& inst)
 	{
 		if (_materias[i])
 			delete _materias[i];
-		_materias[i] = inst.getMateria(i)->clone();
+		if (inst.getMateria(i))
+			_materias[i] = inst.getMateria(i)->clone();
+		else
+			_materias[i] = NULL;
 	}
 	_nbMateria = inst._nbMateria;
 	_name = inst.getName();
@@ -64,7 +70,7 @@ std::ostream& operator<<(std::ostream& os, const Character& o)
 	for (int i = 0; i < MAT_NB; i++)
 	{
 		if (o.getMateria(i))
-			os << "slot#" << i << " => " << *(o.getMateria(i));
+			os << "slot#" << i << " => " << (*o.getMateria(i));
 		else
 			os << "slot#" << i << std::endl;
 	}
@@ -79,9 +85,7 @@ std::ostream& operator<<(std::ostream& os, const Character& o)
 AMateria* Character::getMateria(unsigned int idx) const
 {
 	if ((int) idx < MAT_NB)
-	{
 		return (_materias[idx]);
-	}
 	else
 		return (NULL);
 }

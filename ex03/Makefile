@@ -62,7 +62,6 @@ SRCS_FILES:=	main.cpp\
 				Character.class.cpp\
 				Cure.class.cpp\
 				Ice.class.cpp\
-				Fire.class.cpp\
 				MateriaSource.class.cpp\
 				util.cpp\
 

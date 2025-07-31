@@ -4,31 +4,31 @@
 #include "WrongAnimal.class.hpp"
 #include "WrongCat.class.hpp"
 
-void	test_const_heap()
+void	test_heap()
 {
 	putcol(BLUE, "Constructors");
 	putcol(YELLOWBACK, "new Animal - const Animal *meta = new Animal();");
-	const	Animal *meta = new Animal();
+	Animal *meta = new Animal();
 	std::cout << *meta << std::endl;
 	meta->makeSound();
 	putcol(YELLOWBACK, "new Animal/Dog - const Animal *ad = new Dog()");
-	const	Animal *ad = new Dog();
+	Animal *ad = new Dog();
 	std::cout << *ad << std::endl;
 	ad->makeSound();
 	putcol(YELLOWBACK, "new Animal/Cat - const Animal *ac = new Cat();");
-	const	Animal *ac = new Cat();
+	Animal *ac = new Cat();
 	std::cout << *ac << std::endl;
 	ac->makeSound();
 	putcol(YELLOWBACK, "new Wrong Animal - const WrongAnimal *wa = new WrongAnimal();");
-	const	WrongAnimal *wa = new WrongAnimal();
+	WrongAnimal *wa = new WrongAnimal();
 	std::cout << *wa << std::endl;
 	wa->makeSound();
 	putcol(YELLOWBACK, "new Wrong Animal/WrongCat - const WrongAnimal *wa = new WrongCat();");
-	const	WrongAnimal *wc = new WrongCat();
+	WrongAnimal *wc = new WrongCat();
 	std::cout << *wc << std::endl;
 	wc->makeSound();
 	putcol(YELLOWBACK, "new Wrong Cat - const WrongCat *wc = new WrongCat();");
-	const	WrongCat *wcat = new WrongCat();
+	WrongCat *wcat = new WrongCat();
 	std::cout << *wcat << std::endl;
 	wcat->makeSound();
 
@@ -68,6 +68,6 @@ void	test_getter_setter()
 
 int main( void )
 {
-	test_const_heap();
+	test_heap();
 	test_getter_setter();
 }

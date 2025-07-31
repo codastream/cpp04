@@ -3,7 +3,6 @@
 
 WrongCat::WrongCat(void) : WrongAnimal("WrongCat")
 {
-	// _type = "WrongCat";
 	std::cout << "default constructor called for " <<  MAGENTA << "WrongCat class" \
 	<< NC << std::endl;
 }
@@ -27,4 +26,9 @@ WrongCat& WrongCat::operator=(const WrongCat& o)
 		WrongAnimal::operator=(o);
 	}
 	return (*this);
+}
+
+void	WrongCat::makeSound(void) const
+{
+	putcol(MAGENTA, "WrongCat 😺");
 }

@@ -31,21 +31,22 @@ void	readBrain(void)
 {
 	{
 		putcol(YELLOWBACK, "read brain cat");
-		Cat tom;
+		Cat *tom = new Cat();
 		putcol(BLUE, "brain after default constructor");
-		std::cout << *(tom.getBrain()) << std::endl;
-		tom.getBrain()->setIdea(0, "eat");
-		tom.getBrain()->setIdea(1, "play with human");
-		tom.getBrain()->setIdea(2, "rule the world");
+		std::cout << *(tom->getBrain()) << std::endl;
+		tom->getBrain()->setIdea(0, "eat");
+		tom->getBrain()->setIdea(1, "play with human");
+		tom->getBrain()->setIdea(2, "rule the world");
 		putcol(BLUE, "brain after some time");
-		std::cout << *(tom.getBrain()) << std::endl;
+		std::cout << *(tom->getBrain()) << std::endl;
 		putcol(YELLOWBACK, "brain deep copy");
-		Cat cheschire(tom);
+		Cat cheschire(*tom);
 		std::cout << *(cheschire.getBrain()) << std::endl;
 		putcol(YELLOWBACK, "ideas should evolve separately in both instances");
 		cheschire.getBrain()->setIdea(0, "smile");
+		std::cout << "tom" << *(tom->getBrain()) << std::endl;
+		delete tom;
 		std::cout << "cheschire" << *(cheschire.getBrain()) << std::endl;
-		std::cout << "tom" << *(tom.getBrain()) << std::endl;
 	}
 	{
 		putcol(YELLOWBACK, "read brain dog");
